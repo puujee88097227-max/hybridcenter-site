@@ -97,6 +97,14 @@ footer{margin-top:18px;color:var(--ink3);font-size:12.5px;text-align:center}
     <div class="f w"><label>Юуг эхэлж бодож байна вэ <span class="r">*</span></label><select data-k="Мөрөөдөл" data-r="1"><option value="">— сонгох —</option><option>1 · Хашаа байшинтай болох</option><option>2 · Байртай болох</option><option>3 · Автомашинтай болох</option><option>4 · Гадаад руу явах</option><option>Бусад</option></select></div>
     <div class="f w"><label>Хэзээ, хэдий хэмжээний мөнгө хэрэгтэй вэ <span class="r">*</span></label><textarea data-k="Мөрөөдлийн тайлбар" data-r="1"></textarea></div>
   </div>
+  <div class="sec">Өр зээл, зардал</div>
+  <div class="grid">
+    <div class="f"><label>Сард төлдөг зээл ₮ <span class="r">*</span></label><input data-k="Сарын зээл" data-r="1" inputmode="numeric" placeholder="0 бол 0"></div>
+    <div class="f"><label>Сард хэрэг болдог мөнгө ₮ <span class="r">*</span></label><input data-k="Сарын зардал" data-r="1" inputmode="numeric" placeholder="амьжиргаа, бүгд"></div>
+    <div class="f"><label>Жилд төлдөг зээл ₮ <span class="r">*</span></label><input data-k="Жилийн зээл" data-r="1" inputmode="numeric" placeholder="0 бол 0"></div>
+    <div class="f"><label>Нийт үлдэгдэл өр ₮</label><input data-k="Өрийн үлдэгдэл" inputmode="numeric" placeholder="бүх зээл нийлээд"></div>
+    <div class="f w"><label>Юу юуны зээл вэ <span class="r">*</span></label><textarea data-k="Зээлийн төрөл" data-r="1" placeholder="ж: банкны цалингийн зээл 1.2 сая/сар, машины зээл 800к/сар, ломбард… Байхгүй бол «байхгүй»"></textarea></div>
+  </div>
   <div class="sec">Яаралтай үед холбоо барих хүн</div>
   <div class="grid">
     <div class="f"><label>Нэр <span class="r">*</span></label><input data-k="Яаралтай нэр" data-r="1" placeholder="Нэр — тоо биш"></div>
@@ -104,6 +112,15 @@ footer{margin-top:18px;color:var(--ink3);font-size:12.5px;text-align:center}
     <div class="f"><label>Утас <span class="r">*</span></label><input data-k="Яаралтай утас" data-r="1" inputmode="numeric"></div>
     <div class="f"><label>Сошиал хаяг <span class="r">*</span></label><input data-k="Яаралтай сошиал" data-r="1"></div>
   </div>
+  <div class="sec">Цээж зураг <span class="r">*</span></div>
+  <div class="grid"><div class="f w">
+    <input type="file" id="photo" accept="image/*" capture="user" hidden>
+    <div style="display:flex;gap:10px;align-items:center">
+      <div id="pbox" style="width:64px;height:64px;border-radius:10px;background:var(--paper);border:1px solid var(--line2);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--ink3);flex:none">👤</div>
+      <label for="photo" style="font-size:14px;font-weight:600;border:1px solid var(--ac);color:var(--ac);border-radius:8px;padding:10px 14px;cursor:pointer" id="plab">Зураг авах / сонгох</label>
+    </div>
+    <div class="err" id="perr" hidden>Цээж зураг заавал</div>
+  </div></div>
   <div class="sec">Тэмдэглэл</div>
   <div class="grid"><div class="f w"><label>Нэмж хэлэх зүйл</label><textarea data-k="Тэмдэглэл"></textarea></div></div>
   <div class="err" id="err" hidden></div>
@@ -111,12 +128,11 @@ footer{margin-top:18px;color:var(--ink3);font-size:12.5px;text-align:center}
 </form>
 
 <div class="card" id="done" hidden>
-  <div class="note"><b>Анкет бэлэн боллоо.</b> Gmail-ээр Азбаярт илгээнэ — нэг товч. Gmail байхгүй бол доорх бусад замаар Эрдэнэд.</div>
-  <a id="gm" class="mail" href="#">✉️ Gmail-ээр Азбаярт илгээх</a>
-  <div class="btns"><a id="vib" class="v" href="#">Viber-ээр</a><a id="sms" href="#">SMS-ээр</a><button class="g" id="copy" type="button">Хуулах</button></div>
-  <div class="how">Товч ажиллахгүй бол: доорх текст дээр <b>удаан дарж</b> → <b>Select All</b> → <b>Copy</b> → Viber-т Эрдэнэд буулгана.</div>
-  <textarea class="out" id="out" readonly></textarea>
-  <div class="warn"><b>Цээж зураг ЗААВАЛ:</b> Gmail нээгдэхэд 📎 хавсралтаар цээж зургаа нэмээд илгээ. Зураггүй анкет бүртгэгдэхгүй.</div>
+  <div class="note"><b>Анкет бэлэн.</b> Доорх товчийг дарахад анкетын текст + цээж зураг хамт явна. Гарч ирэх цонхноос <b>Gmail</b>-ийг сонгоод, хүлээн авагчид <b>puujee88097227@gmail.com</b> гэж бичээд илгээнэ.</div>
+  <button id="gm" class="mail" type="button" style="border:0;width:100%;cursor:pointer;font:inherit;font-weight:700;font-size:16px">✉️ Зурагтай нь Gmail-ээр илгээх</button>
+  <div class="how" id="gmhow" hidden>Энэ утас зураг хамт илгээхийг дэмжихгүй байна — Gmail нээгдэнэ, <b>📎 хавсралтаар зургаа</b> нэмээд илгээнэ үү.</div>
+  <div class="how">Хүлээн авагч: <b>puujee88097227@gmail.com</b></div>
+  <textarea class="out" id="out" readonly style="min-height:120px"></textarea>
   <button class="send" style="background:var(--line2);color:var(--ink)" id="back" type="button">Засах</button>
 </div>
 <footer>Hybrid Center · Ажилтны анкет</footer>
@@ -125,7 +141,10 @@ footer{margin-top:18px;color:var(--ink3);font-size:12.5px;text-align:center}
 const $=i=>document.getElementById(i);
 const TO="88097227", MAIL="puujee88097227@gmail.com";
 const NAMES={1:"Азбаяр",2:"Намука",3:"Moogii",4:"Эрдэнэдаваа",5:"Bayraa",6:"Б.Отгонбаатар (Отгоо)",7:"Нямбаяр (Loglog)",8:"Төөгий",9:"Ууганцэцэг",10:"Барсбаяр",11:"Хангай",12:"Д.Наранбаатар (Наба)",13:"Давааням (Даавка)",14:"Дандар",15:"Баторгил (Оргил)",16:"Т/Отгоо"};
-let ID="";
+let ID="", PHOTO=null, TXT="", SUBJ="";
+$("photo").addEventListener("change",e=>{const f=e.target.files&&e.target.files[0]; if(!f)return; PHOTO=f;
+  const r=new FileReader(); r.onload=()=>{$("pbox").innerHTML=`<img src="${r.result}" style="width:100%;height:100%;object-fit:cover">`}; r.readAsDataURL(f);
+  $("plab").textContent="Зураг солих"; $("perr").hidden=true;});
 function parse(v){const d=(v||"").replace(/\D/g,"");if(!d)return 0;const n=parseInt(d,10);return n>=1&&n<=16?n:0}
 $("idc").addEventListener("input",()=>{const n=parse($("idc").value);$("who").innerHTML=n&&NAMES[n]?`<b>HC-${String(n).padStart(3,"0")}</b> · ${NAMES[n]} — та мөн үү?`:'Кодын тоог бичнэ. HC-007 бол <b>007</b> эсвэл <b>7</b>'});
 $("go").addEventListener("click",()=>{const n=parse($("idc").value);
@@ -151,22 +170,25 @@ $("f").addEventListener("submit",e=>{
   if(val("Данс")&&digits("Данс").length<8) mark("Данс","Дансны дугаар дутуу");
   if(val("Яаралтай нэр")&&!/[А-Яа-яӨөҮүA-Za-z]{2,}/.test(val("Яаралтай нэр"))) mark("Яаралтай нэр","Яаралтай холбоо барих хүний НЭР — утас биш");
   if(val("Албан тушаал")==="Бусад"&&val("Тэмдэглэл").length<5) mark("Тэмдэглэл","«Бусад» бол Тэмдэглэлд яг юу хийдгээ бич");
+  for(const k of ["Сарын зээл","Сарын зардал","Жилийн зээл"]){ if(val(k)&&!/^\d+$/.test(digits(k))) mark(k,k+" — тоогоор"); }
+  if(!PHOTO){bad.push("Цээж зураг заавал");$("perr").hidden=false;}
   if(bad.length){$("err").innerHTML="<b>Илгээгдэхгүй — дутуу/буруу:</b><br>"+bad.join("<br>");$("err").hidden=false;
     $("f").querySelector(".f.bad input,.f.bad select,.f.bad textarea")?.focus();window.scrollTo({top:$("err").offsetTop-120,behavior:"smooth"});return}
   $("err").hidden=true;
   const lines=["АНКЕТ "+ID];
   for(const el of $("f").querySelectorAll("[data-k]")){let v=el.value.trim(); if(["Суурь/хувь","Хүсч буй цалин","Утас","Яаралтай утас","Данс"].includes(el.dataset.k)) v=v.replace(/\D/g,""); if(v)lines.push(el.dataset.k+": "+v)}
   lines.push("Илгээсэн: "+new Date().toLocaleString("mn-MN"));
-  const txt=lines.join("\n"); $("out").value=txt;
-  $("vib").href="viber://forward?text="+encodeURIComponent(txt);
-  $("gm").href="mailto:"+MAIL+"?subject="+encodeURIComponent("АНКЕТ "+ID+" "+($("f").querySelector('[data-k="Овог нэр"]').value.trim()))+"&body="+encodeURIComponent(txt);
-  $("sms").href="sms:"+TO+(/iPhone|iPad/.test(navigator.userAgent)?"&":"?")+"body="+encodeURIComponent(txt);
+  TXT=lines.join("\n"); $("out").value=TXT;
+  SUBJ="АНКЕТ "+ID+" "+$("f").querySelector('[data-k="Овог нэр"]').value.trim();
   $("f").hidden=true; $("done").hidden=false; window.scrollTo(0,0);});
-$("copy").addEventListener("click",async()=>{const o=$("out");o.focus();o.select();o.setSelectionRange(0,o.value.length);
-  let ok=false; try{ok=document.execCommand("copy")}catch(e){}
-  if(!ok){try{await navigator.clipboard.writeText(o.value);ok=true}catch(e){}}
-  $("copy").textContent=ok?"Хуулагдлаа ✓":"Сонгогдлоо — Copy дарна уу"});
-$("out").addEventListener("click",()=>{const o=$("out");o.select();o.setSelectionRange(0,o.value.length)});
+$("gm").addEventListener("click",async()=>{
+  const files=PHOTO?[new File([PHOTO],ID+"_zurag.jpg",{type:PHOTO.type||"image/jpeg"})]:[];
+  if(navigator.canShare&&files.length&&navigator.canShare({files})){
+    try{ await navigator.share({files,title:SUBJ,text:"Хэнд: "+MAIL+"\n\n"+TXT}); return; }catch(e){ if(e&&e.name==="AbortError")return; }
+  }
+  $("gmhow").hidden=false;
+  location.href="mailto:"+MAIL+"?subject="+encodeURIComponent(SUBJ)+"&body="+encodeURIComponent(TXT);
+});
 $("back").addEventListener("click",()=>{$("done").hidden=true;$("f").hidden=false});
 </script>
 
